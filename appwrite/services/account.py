@@ -197,17 +197,6 @@ class Account(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_account_verification(self, url):
-        """Create Verification"""
-
-        params = {}
-        path = '/account/verification'
-        params['url'] = url
-
-        return self.client.call('post', path, {
-            'content-type': 'application/json',
-        }, params)
-
     def update_account_verification(self, user_id, secret, password_b):
         """Updated Verification"""
 
