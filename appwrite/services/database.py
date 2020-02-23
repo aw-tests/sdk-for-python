@@ -71,7 +71,7 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def list_documents(self, collection_id, filters=[], offset=0, limit=50, order_field='$uid', order_type='ASC', order_cast='string', search='', first=0, last=0):
+    def list_documents(self, collection_id, filters=[], offset=0, limit=50, order_field='$id', order_type='ASC', order_cast='string', search='', first=0, last=0):
         """List Documents"""
 
         params = {}
