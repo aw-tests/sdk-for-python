@@ -1,16 +1,16 @@
 import setuptools
 
 setuptools.setup(
-  name = 'appwrite',
-  packages = ['appwrite', 'appwrite/services'],
+  name = '',
+  packages = ['', '/services'],
   version = '0.0.4',
-  license='BSD-3-Clause',
+  license='',
   description = '',
-  author = 'Appwrite Team',
-  author_email = 'team@appwrite.io',
-  maintainer = 'Appwrite Team',
-  maintainer_email = 'team@appwrite.io',
-  url = 'https://appwrite.io/support',
+  author = '',
+  author_email = '',
+  maintainer = '',
+  maintainer_email = '',
+  url = '',
   download_url='https://github.com/appwrite/sdk-for-python/archive/0.0.4.tar.gz',
   # keywords = ['SOME', 'MEANINGFULL', 'KEYWORDS'],
   install_requires=[
