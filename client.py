@@ -1,0 +1,63 @@
+import requests
+
+
+class Client:
+    def __init__(self):
+        self._self_signed = False
+        self._endpoint = 'https://example.com'
+        self._global_headers = {
+            'content-type': '',
+            'x-sdk-version': ':python:0.0.4',
+        }
+
+    def set_self_signed(self, status=True):
+        self._self_signed = status
+        return self
+
+    def set_endpoint(self, endpoint):
+        self._endpoint = endpoint
+        return self
+
+    def add_header(self, key, value):
+        self._global_headers[key.lower()] = value.lower()
+        return self
+
+    def call(self, method, path='', headers=None, params=None):
+        if headers is None:
+            headers = {}
+
+        if params is None:
+            params = {}
+
+        data = {}
+        json = {}
+        
+        self._global_headers.update(headers)
+
+        if method != 'get':
+            data = params
+            params = {}
+
+        if headers['content-type'] == 'application/json':
+            json = data
+            data = {}
+
+        response = requests.request(  # call method dynamically https://stackoverflow.com/a/4246075/2299554
+            method=method,
+            url=self._endpoint + path,
+            params=params,
+            data=data,
+            json=json,
+            headers=self._global_headers,
+            verify=self._self_signed,
+        )
+
+        response.raise_for_status()
+
+        content_type = response.headers['Content-Type']
+
+        if content_type.startswith('application/json'):
+            return response.json()
+
+        return response._content
+
