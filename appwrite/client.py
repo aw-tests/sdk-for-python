@@ -1,5 +1,5 @@
+import io
 import requests
-
 
 class Client:
     def __init__(self):
@@ -47,8 +47,9 @@ class Client:
 
         data = {}
         json = {}
+        files = {}
         
-        self._global_headers.update(headers)
+        headers = {**self._global_headers, **headers}
 
         if method != 'get':
             data = params
@@ -59,7 +60,12 @@ class Client:
             data = {}
 
         if headers['content-type'].startswith('multipart/form-data'):
-            data = data
+            del headers['content-type']
+            
+            for key in data.copy():
+                if isinstance(data[key], io.BufferedIOBase):
+                    files[key] = data[key]
+                    del data[key]
 
         response = requests.request(  # call method dynamically https://stackoverflow.com/a/4246075/2299554
             method=method,
@@ -67,7 +73,8 @@ class Client:
             params=self.flatten(params),
             data=self.flatten(data),
             json=json,
-            headers=self._global_headers,
+            files=files,
+            headers=headers,
             verify=self._self_signed,
         )
 
@@ -90,7 +97,7 @@ class Client:
             finalKey = prefix + '[' + str(i) +']' if isinstance(data, list) else finalKey
             i += 1
             
-            if isinstance(value, list) or isinstance(value, dict)::
+            if isinstance(value, list) or isinstance(value, dict):
                 output = {**output, **self.flatten(value, finalKey)}
             else:
                 output[finalKey] = value
