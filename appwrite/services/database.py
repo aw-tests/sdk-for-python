@@ -71,7 +71,7 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def list_documents(self, collection_id, filters=[], offset=0, limit=50, order_field='$id', order_type='ASC', order_cast='string', search='', first=0, last=0):
+    def list_documents(self, collection_id, filters=[], offset=0, limit=50, order_field='$id', order_type='ASC', order_cast='string', search=''):
         """List Documents"""
 
         params = {}
@@ -84,8 +84,6 @@ class Database(Service):
         params['orderType'] = order_type
         params['orderCast'] = order_cast
         params['search'] = search
-        params['first'] = first
-        params['last'] = last
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
@@ -144,16 +142,5 @@ class Database(Service):
         path = path.replace('{documentId}', document_id)                
 
         return self.client.call('delete', path, {
-            'content-type': 'application/json',
-        }, params)
-
-    def get_collection_logs(self, collection_id):
-        """Get Collection Logs"""
-
-        params = {}
-        path = '/database/collections/{collectionId}/logs'
-        path = path.replace('{collectionId}', collection_id)                
-
-        return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
