@@ -71,15 +71,15 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def list_documents(self, collection_id, filters=[], offset=0, limit=50, order_field='$id', order_type='ASC', order_cast='string', search=''):
+    def list_documents(self, collection_id, filters=[], limit=25, offset=0, order_field='', order_type='ASC', order_cast='string', search=''):
         """List Documents"""
 
         params = {}
         path = '/database/collections/{collectionId}/documents'
         path = path.replace('{collectionId}', collection_id)                
         params['filters'] = filters
-        params['offset'] = offset
         params['limit'] = limit
+        params['offset'] = offset
         params['orderField'] = order_field
         params['orderType'] = order_type
         params['orderCast'] = order_cast
