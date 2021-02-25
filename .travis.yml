@@ -1,11 +1,11 @@
 language: python
 python:
-  - "3.9"
+  - "3.8"
 
 jobs:
   include:
     - stage: pypi release
-      python: "3.9"
+      python: "3.8"
       script: echo "Deploying to pypi ..."
       deploy:
         provider: pypi
