@@ -1,0 +1,15 @@
+language: python
+python:
+  - "3.9"
+
+jobs:
+  include:
+    - stage: npm release
+      node_js: "14.16"
+      script: echo "Deploying to npm ..."
+      deploy:
+        provider: pypi
+        username: "__token__"
+        password: $PYPI_TOKEN
+        on:
+          tags: true
