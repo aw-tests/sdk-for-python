@@ -4,9 +4,9 @@ python:
 
 jobs:
   include:
-    - stage: npm release
-      node_js: "14.16"
-      script: echo "Deploying to npm ..."
+    - stage: pypi release
+      python: "3.9"
+      script: echo "Deploying to pypi ..."
       deploy:
         provider: pypi
         username: "__token__"
