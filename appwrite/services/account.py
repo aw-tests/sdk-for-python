@@ -59,7 +59,7 @@ class Account(Service):
             'content-type': 'application/json',
         }, params)
 
-    def update_password(self, password, old_password):
+    def update_password(self, password, old_password=''):
         """Update Account Password"""
 
         params = {}
