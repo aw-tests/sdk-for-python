@@ -1,5 +1,5 @@
 from ..service import Service
-
+from ..exception import AppwriteException
 
 class Locale(Service):
 
@@ -36,7 +36,7 @@ class Locale(Service):
             'content-type': 'application/json',
         }, params)
 
-    def get_countries_e_u(self):
+    def get_countries_eu(self):
         """List EU Countries"""
 
         params = {}

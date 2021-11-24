@@ -11,4 +11,4 @@ client = Client()
 
 account = Account(client)
 
-result = account.update_verification('[USER_ID]', '[SECRET]')
+result = account.get_session('[SESSION_ID]')

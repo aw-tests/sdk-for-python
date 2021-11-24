@@ -8,8 +8,8 @@ class Client:
         self._endpoint = 'https://appwrite.io/v1'
         self._global_headers = {
             'content-type': '',
-            'x-sdk-version': 'appwrite:python:0.2.0',
-            'X-Appwrite-Response-Format' : '0.8.0',
+            'x-sdk-version': 'appwrite:python:0.5.1',
+            'X-Appwrite-Response-Format' : '0.11.0',
         }
 
     def set_self_signed(self, status=True):
@@ -21,29 +21,29 @@ class Client:
         return self
 
     def add_header(self, key, value):
-        self._global_headers[key.lower()] = value.lower()
+        self._global_headers[key.lower()] = value
         return self
 
     def set_project(self, value):
         """Your project ID"""
 
-        self._global_headers['x-appwrite-project'] = value.lower()
+        self._global_headers['x-appwrite-project'] = value
         return self
 
     def set_key(self, value):
         """Your secret API key"""
 
-        self._global_headers['x-appwrite-key'] = value.lower()
+        self._global_headers['x-appwrite-key'] = value
         return self
 
-    def set_j_w_t(self, value):
+    def set_jwt(self, value):
         """Your secret JSON Web Token"""
 
-        self._global_headers['x-appwrite-jwt'] = value.lower()
+        self._global_headers['x-appwrite-jwt'] = value
         return self
 
     def set_locale(self, value):
-        self._global_headers['x-appwrite-locale'] = value.lower()
+        self._global_headers['x-appwrite-locale'] = value
         return self
 
     def call(self, method, path='', headers=None, params=None):
@@ -84,7 +84,7 @@ class Client:
                 json=json,
                 files=files,
                 headers=headers,
-                verify=self._self_signed,
+                verify=(not self._self_signed),
             )
 
             response.raise_for_status()

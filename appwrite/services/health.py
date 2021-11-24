@@ -1,5 +1,5 @@
 from ..service import Service
-
+from ..exception import AppwriteException
 
 class Health(Service):
 
@@ -36,7 +36,7 @@ class Health(Service):
             'content-type': 'application/json',
         }, params)
 
-    def get_d_b(self):
+    def get_db(self):
         """Get DB"""
 
         params = {}
@@ -47,7 +47,7 @@ class Health(Service):
         }, params)
 
     def get_queue_certificates(self):
-        """Get Certificate Queue"""
+        """Get Certificates Queue"""
 
         params = {}
         path = '/health/queue/certificates'
@@ -71,16 +71,6 @@ class Health(Service):
 
         params = {}
         path = '/health/queue/logs'
-
-        return self.client.call('get', path, {
-            'content-type': 'application/json',
-        }, params)
-
-    def get_queue_tasks(self):
-        """Get Tasks Queue"""
-
-        params = {}
-        path = '/health/queue/tasks'
 
         return self.client.call('get', path, {
             'content-type': 'application/json',

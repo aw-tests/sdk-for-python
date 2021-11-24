@@ -1,5 +1,5 @@
 from appwrite.client import Client
-from appwrite.services.teams import Teams
+from appwrite.services.users import Users
 
 client = Client()
 
@@ -9,6 +9,6 @@ client = Client()
   .set_key('919c2d18fb5d4...a2ae413da83346ad2') # Your secret API key
 )
 
-teams = Teams(client)
+users = Users(client)
 
-result = teams.create('', '[NAME]')
+result = users.update_email('[USER_ID]', 'email@example.com')
