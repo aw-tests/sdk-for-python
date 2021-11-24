@@ -113,7 +113,7 @@ class Users(Service):
             'content-type': 'application/json',
         }, params)
 
-    def get_logs(self, user_id):
+    def get_logs(self, user_id, limit = None, offset = None):
         """Get User Logs"""
 
         if user_id is None: 
@@ -122,6 +122,12 @@ class Users(Service):
         params = {}
         path = '/users/{userId}/logs'
         path = path.replace('{userId}', user_id)                
+
+        if limit is not None: 
+            params['limit'] = limit
+
+        if offset is not None: 
+            params['offset'] = offset
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
