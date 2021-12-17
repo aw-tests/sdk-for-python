@@ -1,5 +1,5 @@
 from appwrite.client import Client
-from appwrite.services.database import Database
+from appwrite.services.health import Health
 
 client = Client()
 
@@ -9,6 +9,6 @@ client = Client()
   .set_key('919c2d18fb5d4...a2ae413da83346ad2') # Your secret API key
 )
 
-database = Database(client)
+health = Health(client)
 
-result = database.get_index('[COLLECTION_ID]', '')
+result = health.get_queue_tasks()

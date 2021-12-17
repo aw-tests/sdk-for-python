@@ -6,7 +6,7 @@ class Functions(Service):
     def __init__(self, client):
         super(Functions, self).__init__(client)
 
-    def list(self, search = None, limit = None, offset = None, cursor = None, cursor_direction = None, order_type = None):
+    def list(self, search = None, limit = None, offset = None, order_type = None):
         """List Functions"""
 
         params = {}
@@ -21,12 +21,6 @@ class Functions(Service):
         if offset is not None: 
             params['offset'] = offset
 
-        if cursor is not None: 
-            params['cursor'] = cursor
-
-        if cursor_direction is not None: 
-            params['cursorDirection'] = cursor_direction
-
         if order_type is not None: 
             params['orderType'] = order_type
 
@@ -34,11 +28,8 @@ class Functions(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create(self, function_id, name, execute, runtime, vars = None, events = None, schedule = None, timeout = None):
+    def create(self, name, execute, runtime, vars = None, events = None, schedule = None, timeout = None):
         """Create Function"""
-
-        if function_id is None: 
-            raise AppwriteException('Missing required parameter: "function_id"')
 
         if name is None: 
             raise AppwriteException('Missing required parameter: "name"')
@@ -51,9 +42,6 @@ class Functions(Service):
 
         params = {}
         path = '/functions'
-
-        if function_id is not None: 
-            params['functionId'] = function_id
 
         if name is not None: 
             params['name'] = name
@@ -146,7 +134,7 @@ class Functions(Service):
             'content-type': 'application/json',
         }, params)
 
-    def list_executions(self, function_id, limit = None, offset = None, search = None, cursor = None, cursor_direction = None):
+    def list_executions(self, function_id, search = None, limit = None, offset = None, order_type = None):
         """List Executions"""
 
         if function_id is None: 
@@ -156,20 +144,17 @@ class Functions(Service):
         path = '/functions/{functionId}/executions'
         path = path.replace('{functionId}', function_id)                
 
+        if search is not None: 
+            params['search'] = search
+
         if limit is not None: 
             params['limit'] = limit
 
         if offset is not None: 
             params['offset'] = offset
 
-        if search is not None: 
-            params['search'] = search
-
-        if cursor is not None: 
-            params['cursor'] = cursor
-
-        if cursor_direction is not None: 
-            params['cursorDirection'] = cursor_direction
+        if order_type is not None: 
+            params['orderType'] = order_type
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
@@ -230,7 +215,7 @@ class Functions(Service):
             'content-type': 'application/json',
         }, params)
 
-    def list_tags(self, function_id, search = None, limit = None, offset = None, cursor = None, cursor_direction = None, order_type = None):
+    def list_tags(self, function_id, search = None, limit = None, offset = None, order_type = None):
         """List Tags"""
 
         if function_id is None: 
@@ -248,12 +233,6 @@ class Functions(Service):
 
         if offset is not None: 
             params['offset'] = offset
-
-        if cursor is not None: 
-            params['cursor'] = cursor
-
-        if cursor_direction is not None: 
-            params['cursorDirection'] = cursor_direction
 
         if order_type is not None: 
             params['orderType'] = order_type

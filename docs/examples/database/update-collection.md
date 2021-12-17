@@ -11,4 +11,4 @@ client = Client()
 
 database = Database(client)
 
-result = database.update_collection('[COLLECTION_ID]', '[NAME]', 'document')
+result = database.update_collection('[COLLECTION_ID]', '[NAME]')

@@ -11,4 +11,4 @@ client = Client()
 
 users = Users(client)
 
-result = users.update_status('[USER_ID]', False)
+result = users.update_status('[USER_ID]', 1)
