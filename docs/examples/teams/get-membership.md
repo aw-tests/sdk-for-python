@@ -1,5 +1,5 @@
 from appwrite.client import Client
-from appwrite.services.storage import Storage
+from appwrite.services.teams import Teams
 
 client = Client()
 
@@ -9,6 +9,6 @@ client = Client()
   .set_key('919c2d18fb5d4...a2ae413da83346ad2') # Your secret API key
 )
 
-storage = Storage(client)
+teams = Teams(client)
 
-result = storage.update_file('[BUCKET_ID]', '[FILE_ID]')
+result = teams.get_membership('[TEAM_ID]', '[MEMBERSHIP_ID]')
