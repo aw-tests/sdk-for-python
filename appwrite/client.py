@@ -152,7 +152,13 @@ class Client:
                 headers["x-appwrite-id"] = result["$id"]
 
             if on_progress is not None:
-                on_progress(min(offset, size)/size * 100)
+                on_progress({
+                    "$id": result["$id"],
+                    "progress": min(offset, size)/size * 100,
+                    "sizeUploaded": end+1,
+                    "chunksTotal": result["chunksTotal"],
+                    "chunksUploaded": result["chunksUploaded"],
+                })
 
         return result
 

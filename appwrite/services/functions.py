@@ -327,7 +327,7 @@ class Functions(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_execution(self, function_id, data = None, async = None):
+    def create_execution(self, function_id, data = None, xasync = None):
         """Create Execution"""
 
         if function_id is None: 
@@ -340,8 +340,8 @@ class Functions(Service):
         if data is not None: 
             params['data'] = data
 
-        if async is not None: 
-            params['async'] = async
+        if xasync is not None: 
+            params['async'] = xasync
 
         return self.client.call('post', path, {
             'content-type': 'application/json',
