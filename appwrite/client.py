@@ -12,7 +12,7 @@ class Client:
         self._global_headers = {
             'content-type': '',
             'x-sdk-version': 'appwrite:python:0.6.0',
-            'X-Appwrite-Response-Format' : '0.12.0',
+            'X-Appwrite-Response-Format' : '0.13.0',
         }
 
     def set_self_signed(self, status=True):
@@ -59,6 +59,7 @@ class Client:
         data = {}
         json = {}
         files = {}
+        stringify = False
         
         headers = {**self._global_headers, **headers}
 
@@ -72,7 +73,7 @@ class Client:
 
         if headers['content-type'].startswith('multipart/form-data'):
             del headers['content-type']
-            
+            stringify = True
             for key in data.copy():
                 if isinstance(data[key], InputFile):
                     files[key] = (data[key].name, data[key].file)
@@ -82,7 +83,7 @@ class Client:
             response = requests.request(  # call method dynamically https://stackoverflow.com/a/4246075/2299554
                 method=method,
                 url=self._endpoint + path,
-                params=self.flatten(params),
+                params=self.flatten(params, stringify=stringify),
                 data=self.flatten(data),
                 json=json,
                 files=files,
@@ -162,7 +163,7 @@ class Client:
 
         return result
 
-    def flatten(self, data, prefix=''):
+    def flatten(self, data, prefix='', stringify=False):
         output = {}
         i = 0
 
@@ -173,9 +174,12 @@ class Client:
             i += 1
             
             if isinstance(value, list) or isinstance(value, dict):
-                output = {**output, **self.flatten(value, finalKey)}
+                output = {**output, **self.flatten(value, finalKey, stringify)}
             else:
-                output[finalKey] = value
+                if stringify:
+                    output[finalKey] = str(value)
+                else:
+                    output[finalKey] = value
 
         return output
 
