@@ -81,7 +81,7 @@ class Functions(Service):
         }, params)
 
     def list_runtimes(self):
-        """List the currently active function runtimes."""
+        """List runtimes"""
 
         params = {}
         path = '/functions/runtimes'
@@ -218,9 +218,12 @@ class Functions(Service):
 
         param_name = 'code'
 
+
+        upload_id = ''
+
         return self.client.chunked_upload(path, {
             'content-type': 'multipart/form-data',
-        }, params, param_name, on_progress)
+        }, params, param_name, on_progress, upload_id)
 
     def get_deployment(self, function_id, deployment_id):
         """Get Deployment"""
