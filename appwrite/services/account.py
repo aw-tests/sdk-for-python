@@ -30,10 +30,8 @@ class Account(Service):
 
         if email is not None: 
             params['email'] = email
-
         if password is not None: 
             params['password'] = password
-
         return self.client.call('patch', path, {
             'content-type': 'application/json',
         }, params)
@@ -65,7 +63,6 @@ class Account(Service):
 
         if name is not None: 
             params['name'] = name
-
         return self.client.call('patch', path, {
             'content-type': 'application/json',
         }, params)
@@ -81,10 +78,28 @@ class Account(Service):
 
         if password is not None: 
             params['password'] = password
-
         if old_password is not None: 
             params['oldPassword'] = old_password
+        return self.client.call('patch', path, {
+            'content-type': 'application/json',
+        }, params)
 
+    def update_phone(self, number, password):
+        """Update Account Phone"""
+
+        if number is None: 
+            raise AppwriteException('Missing required parameter: "number"')
+
+        if password is None: 
+            raise AppwriteException('Missing required parameter: "password"')
+
+        params = {}
+        path = '/account/phone'
+
+        if number is not None: 
+            params['number'] = number
+        if password is not None: 
+            params['password'] = password
         return self.client.call('patch', path, {
             'content-type': 'application/json',
         }, params)
@@ -110,7 +125,6 @@ class Account(Service):
 
         if prefs is not None: 
             params['prefs'] = prefs
-
         return self.client.call('patch', path, {
             'content-type': 'application/json',
         }, params)
@@ -129,10 +143,8 @@ class Account(Service):
 
         if email is not None: 
             params['email'] = email
-
         if url is not None: 
             params['url'] = url
-
         return self.client.call('post', path, {
             'content-type': 'application/json',
         }, params)
@@ -157,16 +169,12 @@ class Account(Service):
 
         if user_id is not None: 
             params['userId'] = user_id
-
         if secret is not None: 
             params['secret'] = secret
-
         if password is not None: 
             params['password'] = password
-
         if password_again is not None: 
             params['passwordAgain'] = password_again
-
         return self.client.call('put', path, {
             'content-type': 'application/json',
         }, params)
@@ -254,7 +262,6 @@ class Account(Service):
 
         if url is not None: 
             params['url'] = url
-
         return self.client.call('post', path, {
             'content-type': 'application/json',
         }, params)
@@ -273,10 +280,38 @@ class Account(Service):
 
         if user_id is not None: 
             params['userId'] = user_id
-
         if secret is not None: 
             params['secret'] = secret
+        return self.client.call('put', path, {
+            'content-type': 'application/json',
+        }, params)
 
+    def create_phone_verification(self):
+        """Create Phone Verification"""
+
+        params = {}
+        path = '/account/verification/phone'
+
+        return self.client.call('post', path, {
+            'content-type': 'application/json',
+        }, params)
+
+    def update_phone_verification(self, user_id, secret):
+        """Create Phone Verification (confirmation)"""
+
+        if user_id is None: 
+            raise AppwriteException('Missing required parameter: "user_id"')
+
+        if secret is None: 
+            raise AppwriteException('Missing required parameter: "secret"')
+
+        params = {}
+        path = '/account/verification/phone'
+
+        if user_id is not None: 
+            params['userId'] = user_id
+        if secret is not None: 
+            params['secret'] = secret
         return self.client.call('put', path, {
             'content-type': 'application/json',
         }, params)

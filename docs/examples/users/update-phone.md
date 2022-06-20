@@ -11,4 +11,4 @@ client = Client()
 
 users = Users(client)
 
-result = users.update_verification('[USER_ID]', False)
+result = users.update_phone('[USER_ID]', '')
