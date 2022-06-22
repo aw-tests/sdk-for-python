@@ -1,16 +1,16 @@
 from ..service import Service
 from ..exception import AppwriteException
 
-class Database(Service):
+class Databases(Service):
 
     def __init__(self, client):
-        super(Database, self).__init__(client)
+        super(Databases, self).__init__(client)
 
-    def list_collections(self, search = None, limit = None, offset = None, cursor = None, cursor_direction = None, order_type = None):
-        """List Collections"""
+    def list(self, search = None, limit = None, offset = None, cursor = None, cursor_direction = None, order_type = None):
+        """List Databases"""
 
         params = {}
-        path = '/database/collections'
+        path = '/databases'
 
         if search is not None: 
             params['search'] = search
@@ -34,8 +34,110 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_collection(self, collection_id, name, permission, read, write):
+    def create(self, database_id, name):
+        """Create Database"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
+        if name is None: 
+            raise AppwriteException('Missing required parameter: "name"')
+
+        params = {}
+        path = '/databases'
+
+        if database_id is not None: 
+            params['databaseId'] = database_id
+        if name is not None: 
+            params['name'] = name
+        return self.client.call('post', path, {
+            'content-type': 'application/json',
+        }, params)
+
+    def get(self, database_id):
+        """Get Database"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
+        params = {}
+        path = '/databases/{databaseId}'
+        path = path.replace('{databaseId}', database_id)                
+
+        return self.client.call('get', path, {
+            'content-type': 'application/json',
+        }, params)
+
+    def update(self, database_id, name):
+        """Update Database"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
+        if name is None: 
+            raise AppwriteException('Missing required parameter: "name"')
+
+        params = {}
+        path = '/databases/{databaseId}'
+        path = path.replace('{databaseId}', database_id)                
+
+        if name is not None: 
+            params['name'] = name
+        return self.client.call('put', path, {
+            'content-type': 'application/json',
+        }, params)
+
+    def delete(self, database_id):
+        """Delete Database"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
+        params = {}
+        path = '/databases/{databaseId}'
+        path = path.replace('{databaseId}', database_id)                
+
+        return self.client.call('delete', path, {
+            'content-type': 'application/json',
+        }, params)
+
+    def list_collections(self, database_id, search = None, limit = None, offset = None, cursor = None, cursor_direction = None, order_type = None):
+        """List Collections"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
+        params = {}
+        path = '/databases/{databaseId}/collections'
+        path = path.replace('{databaseId}', database_id)                
+
+        if search is not None: 
+            params['search'] = search
+
+        if limit is not None: 
+            params['limit'] = limit
+
+        if offset is not None: 
+            params['offset'] = offset
+
+        if cursor is not None: 
+            params['cursor'] = cursor
+
+        if cursor_direction is not None: 
+            params['cursorDirection'] = cursor_direction
+
+        if order_type is not None: 
+            params['orderType'] = order_type
+
+        return self.client.call('get', path, {
+            'content-type': 'application/json',
+        }, params)
+
+    def create_collection(self, database_id, collection_id, name, permission, read, write):
         """Create Collection"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -53,7 +155,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "write"')
 
         params = {}
-        path = '/database/collections'
+        path = '/databases/{databaseId}/collections'
+        path = path.replace('{databaseId}', database_id)                
 
         if collection_id is not None: 
             params['collectionId'] = collection_id
@@ -69,22 +172,29 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def get_collection(self, collection_id):
+    def get_collection(self, database_id, collection_id):
         """Get Collection"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
         params = {}
-        path = '/database/collections/{collectionId}'
+        path = '/databases/{databaseId}/collections/{collectionId}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def update_collection(self, collection_id, name, permission, read = None, write = None, enabled = None):
+    def update_collection(self, database_id, collection_id, name, permission, read = None, write = None, enabled = None):
         """Update Collection"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -96,7 +206,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "permission"')
 
         params = {}
-        path = '/database/collections/{collectionId}'
+        path = '/databases/{databaseId}/collections/{collectionId}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if name is not None: 
@@ -113,37 +224,48 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def delete_collection(self, collection_id):
+    def delete_collection(self, database_id, collection_id):
         """Delete Collection"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
         params = {}
-        path = '/database/collections/{collectionId}'
+        path = '/databases/{databaseId}/collections/{collectionId}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         return self.client.call('delete', path, {
             'content-type': 'application/json',
         }, params)
 
-    def list_attributes(self, collection_id):
+    def list_attributes(self, database_id, collection_id):
         """List Attributes"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def create_boolean_attribute(self, collection_id, key, required, default = None, array = None):
+    def create_boolean_attribute(self, database_id, collection_id, key, required, default = None, array = None):
         """Create Boolean Attribute"""
 
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
@@ -154,7 +276,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "required"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/boolean'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/boolean'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -169,9 +292,12 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_email_attribute(self, collection_id, key, required, default = None, array = None):
+    def create_email_attribute(self, database_id, collection_id, key, required, default = None, array = None):
         """Create Email Attribute"""
 
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
@@ -182,7 +308,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "required"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/email'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/email'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -197,8 +324,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_enum_attribute(self, collection_id, key, elements, required, default = None, array = None):
+    def create_enum_attribute(self, database_id, collection_id, key, elements, required, default = None, array = None):
         """Create Enum Attribute"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -213,7 +343,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "required"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/enum'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/enum'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -230,9 +361,12 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_float_attribute(self, collection_id, key, required, min = None, max = None, default = None, array = None):
+    def create_float_attribute(self, database_id, collection_id, key, required, min = None, max = None, default = None, array = None):
         """Create Float Attribute"""
 
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
@@ -243,7 +377,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "required"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/float'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/float'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -262,9 +397,12 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_integer_attribute(self, collection_id, key, required, min = None, max = None, default = None, array = None):
+    def create_integer_attribute(self, database_id, collection_id, key, required, min = None, max = None, default = None, array = None):
         """Create Integer Attribute"""
 
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
+
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
@@ -275,7 +413,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "required"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/integer'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/integer'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -294,8 +433,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_ip_attribute(self, collection_id, key, required, default = None, array = None):
+    def create_ip_attribute(self, database_id, collection_id, key, required, default = None, array = None):
         """Create IP Address Attribute"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -307,7 +449,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "required"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/ip'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/ip'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -322,8 +465,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_string_attribute(self, collection_id, key, size, required, default = None, array = None):
+    def create_string_attribute(self, database_id, collection_id, key, size, required, default = None, array = None):
         """Create String Attribute"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -338,7 +484,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "required"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/string'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/string'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -355,8 +502,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_url_attribute(self, collection_id, key, required, default = None, array = None):
+    def create_url_attribute(self, database_id, collection_id, key, required, default = None, array = None):
         """Create URL Attribute"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -368,7 +518,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "required"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/url'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/url'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -383,8 +534,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def get_attribute(self, collection_id, key):
+    def get_attribute(self, database_id, collection_id, key):
         """Get Attribute"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -393,7 +547,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "key"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/{key}'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
         path = path.replace('{key}', key)                
 
@@ -401,8 +556,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def delete_attribute(self, collection_id, key):
+    def delete_attribute(self, database_id, collection_id, key):
         """Delete Attribute"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -411,7 +569,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "key"')
 
         params = {}
-        path = '/database/collections/{collectionId}/attributes/{key}'
+        path = '/databases/{databaseId}/collections/{collectionId}/attributes/{key}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
         path = path.replace('{key}', key)                
 
@@ -419,14 +578,18 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def list_documents(self, collection_id, queries = None, limit = None, offset = None, cursor = None, cursor_direction = None, order_attributes = None, order_types = None):
+    def list_documents(self, database_id, collection_id, queries = None, limit = None, offset = None, cursor = None, cursor_direction = None, order_attributes = None, order_types = None):
         """List Documents"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
         params = {}
-        path = '/database/collections/{collectionId}/documents'
+        path = '/databases/{databaseId}/collections/{collectionId}/documents'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if queries is not None: 
@@ -454,8 +617,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def create_document(self, collection_id, document_id, data, read = None, write = None):
+    def create_document(self, database_id, collection_id, document_id, data, read = None, write = None):
         """Create Document"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -467,7 +633,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "data"')
 
         params = {}
-        path = '/database/collections/{collectionId}/documents'
+        path = '/databases/{databaseId}/collections/{collectionId}/documents'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if document_id is not None: 
@@ -482,8 +649,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def get_document(self, collection_id, document_id):
+    def get_document(self, database_id, collection_id, document_id):
         """Get Document"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -492,7 +662,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "document_id"')
 
         params = {}
-        path = '/database/collections/{collectionId}/documents/{documentId}'
+        path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
         path = path.replace('{documentId}', document_id)                
 
@@ -500,8 +671,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def update_document(self, collection_id, document_id, data, read = None, write = None):
+    def update_document(self, database_id, collection_id, document_id, data, read = None, write = None):
         """Update Document"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -513,7 +687,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "data"')
 
         params = {}
-        path = '/database/collections/{collectionId}/documents/{documentId}'
+        path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
         path = path.replace('{documentId}', document_id)                
 
@@ -527,8 +702,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def delete_document(self, collection_id, document_id):
+    def delete_document(self, database_id, collection_id, document_id):
         """Delete Document"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -537,7 +715,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "document_id"')
 
         params = {}
-        path = '/database/collections/{collectionId}/documents/{documentId}'
+        path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
         path = path.replace('{documentId}', document_id)                
 
@@ -545,22 +724,29 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def list_indexes(self, collection_id):
+    def list_indexes(self, database_id, collection_id):
         """List Indexes"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
 
         params = {}
-        path = '/database/collections/{collectionId}/indexes'
+        path = '/databases/{databaseId}/collections/{collectionId}/indexes'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def create_index(self, collection_id, key, type, attributes, orders = None):
+    def create_index(self, database_id, collection_id, key, type, attributes, orders = None):
         """Create Index"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -575,7 +761,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "attributes"')
 
         params = {}
-        path = '/database/collections/{collectionId}/indexes'
+        path = '/databases/{databaseId}/collections/{collectionId}/indexes'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
 
         if key is not None: 
@@ -590,8 +777,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def get_index(self, collection_id, key):
+    def get_index(self, database_id, collection_id, key):
         """Get Index"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -600,7 +790,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "key"')
 
         params = {}
-        path = '/database/collections/{collectionId}/indexes/{key}'
+        path = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
         path = path.replace('{key}', key)                
 
@@ -608,8 +799,11 @@ class Database(Service):
             'content-type': 'application/json',
         }, params)
 
-    def delete_index(self, collection_id, key):
+    def delete_index(self, database_id, collection_id, key):
         """Delete Index"""
+
+        if database_id is None: 
+            raise AppwriteException('Missing required parameter: "database_id"')
 
         if collection_id is None: 
             raise AppwriteException('Missing required parameter: "collection_id"')
@@ -618,7 +812,8 @@ class Database(Service):
             raise AppwriteException('Missing required parameter: "key"')
 
         params = {}
-        path = '/database/collections/{collectionId}/indexes/{key}'
+        path = '/databases/{databaseId}/collections/{collectionId}/indexes/{key}'
+        path = path.replace('{databaseId}', database_id)                
         path = path.replace('{collectionId}', collection_id)                
         path = path.replace('{key}', key)                
 

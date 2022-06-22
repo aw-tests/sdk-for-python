@@ -1,5 +1,5 @@
 from appwrite.client import Client
-from appwrite.services.database import Database
+from appwrite.services.databases import Databases
 
 client = Client()
 
@@ -9,6 +9,6 @@ client = Client()
   .set_key('919c2d18fb5d4...a2ae413da83346ad2') # Your secret API key
 )
 
-database = Database(client)
+databases = Databases(client)
 
-result = database.create_document('[COLLECTION_ID]', '[DOCUMENT_ID]', {})
+result = databases.delete_collection('[DATABASE_ID]', '[COLLECTION_ID]')
