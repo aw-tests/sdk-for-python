@@ -671,7 +671,7 @@ class Databases(Service):
             'content-type': 'application/json',
         }, params)
 
-    def update_document(self, database_id, collection_id, document_id, data, read = None, write = None):
+    def update_document(self, database_id, collection_id, document_id, data = None, read = None, write = None):
         """Update Document"""
 
         if database_id is None: 
@@ -682,9 +682,6 @@ class Databases(Service):
 
         if document_id is None: 
             raise AppwriteException('Missing required parameter: "document_id"')
-
-        if data is None: 
-            raise AppwriteException('Missing required parameter: "data"')
 
         params = {}
         path = '/databases/{databaseId}/collections/{collectionId}/documents/{documentId}'
