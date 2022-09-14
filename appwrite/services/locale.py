@@ -9,75 +9,75 @@ class Locale(Service):
     def get(self):
         """Get User Locale"""
 
-        params = {}
+        
         path = '/locale'
-
+        params = {}
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def get_continents(self):
+    def list_continents(self):
         """List Continents"""
 
-        params = {}
+        
         path = '/locale/continents'
-
+        params = {}
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def get_countries(self):
+    def list_countries(self):
         """List Countries"""
 
-        params = {}
+        
         path = '/locale/countries'
-
+        params = {}
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def get_countries_eu(self):
+    def list_countries_eu(self):
         """List EU Countries"""
 
-        params = {}
+        
         path = '/locale/countries/eu'
-
+        params = {}
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def get_countries_phones(self):
+    def list_countries_phones(self):
         """List Countries Phone Codes"""
 
-        params = {}
+        
         path = '/locale/countries/phones'
-
+        params = {}
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def get_currencies(self):
+    def list_currencies(self):
         """List Currencies"""
 
-        params = {}
+        
         path = '/locale/currencies'
-
+        params = {}
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
         }, params)
 
-    def get_languages(self):
+    def list_languages(self):
         """List Languages"""
 
-        params = {}
+        
         path = '/locale/languages'
-
+        params = {}
 
         return self.client.call('get', path, {
             'content-type': 'application/json',
