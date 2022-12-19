@@ -1,5 +1,5 @@
 from appwrite.client import Client
-from appwrite.services.users import Users
+from appwrite.services.graphql import Graphql
 
 client = Client()
 
@@ -9,6 +9,6 @@ client = Client()
   .set_key('919c2d18fb5d4...a2ae413da83346ad2') # Your secret API key
 )
 
-users = Users(client)
+graphql = Graphql(client)
 
-result = users.get_memberships('[USER_ID]')
+result = graphql.query({})
