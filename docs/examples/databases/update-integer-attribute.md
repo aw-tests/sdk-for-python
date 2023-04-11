@@ -1,5 +1,5 @@
 from appwrite.client import Client
-from appwrite.services.graphql import Graphql
+from appwrite.services.databases import Databases
 
 client = Client()
 
@@ -9,6 +9,6 @@ client = Client()
   .set_key('919c2d18fb5d4...a2ae413da83346ad2') # Your secret API key
 )
 
-graphql = Graphql(client)
+databases = Databases(client)
 
-result = graphql.get('[QUERY]')
+result = databases.update_integer_attribute('[DATABASE_ID]', '[COLLECTION_ID]', '', False, None, None, None)
