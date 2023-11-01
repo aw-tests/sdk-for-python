@@ -1,6 +1,6 @@
 from appwrite.client import Client
-from appwrite.services.avatars import Avatars
-from Appwrite.enums import Browser,
+from Appwrite.enums import Browser
+
 client = Client()
 
 (client
@@ -11,4 +11,4 @@ client = Client()
 
 avatars = Avatars(client)
 
-result = avatars.get_browser( Browser.AA)
+result = avatars.get_browser(Browser.AVANT_BROWSER)

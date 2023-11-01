@@ -1,6 +1,6 @@
 from appwrite.client import Client
-from appwrite.services.avatars import Avatars
-from Appwrite.enums import CreditCard,
+from Appwrite.enums import CreditCard
+
 client = Client()
 
 (client
@@ -11,4 +11,4 @@ client = Client()
 
 avatars = Avatars(client)
 
-result = avatars.get_credit_card( CreditCard.AMEX)
+result = avatars.get_credit_card(CreditCard.AMERICAN_EXPRESS)

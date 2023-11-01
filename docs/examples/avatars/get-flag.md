@@ -1,6 +1,6 @@
 from appwrite.client import Client
-from appwrite.services.avatars import Avatars
-from Appwrite.enums import Flag,
+from Appwrite.enums import Flag
+
 client = Client()
 
 (client
@@ -11,4 +11,4 @@ client = Client()
 
 avatars = Avatars(client)
 
-result = avatars.get_flag( Flag.AF)
+result = avatars.get_flag(Flag.AFGHANISTAN)

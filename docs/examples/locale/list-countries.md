@@ -1,5 +1,4 @@
 from appwrite.client import Client
-from appwrite.services.locale import Locale
 
 client = Client()
 

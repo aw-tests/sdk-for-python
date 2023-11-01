@@ -1,5 +1,4 @@
 from appwrite.client import Client
-from appwrite.services.avatars import Avatars
 
 client = Client()
 
